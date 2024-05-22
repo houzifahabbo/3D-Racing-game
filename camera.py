@@ -19,7 +19,6 @@ class Camera:
         gluPerspective(50, (800/600), 0.1, 100)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
-        # self.apply()
 
     def move(self, x, y, z):
         self.x += x
@@ -34,6 +33,10 @@ class Camera:
     def look_at(self, target_x, target_y, target_z):
         gluLookAt(self.x, self.y, self.z, target_x, target_y, target_z, 0, 1, 0)
 
+    def set_position(self, x, y, z):
+        self.x = x
+        self.y = y
+        self.z = z
 
 
     def apply(self):
