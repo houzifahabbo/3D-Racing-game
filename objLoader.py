@@ -49,7 +49,6 @@ class OBJ:
         self.position = [0, 0, 0]
         self.rotation = [0, 0, 0]
         dirname = os.path.dirname(filename)
-
         material = None
         for line in open(filename, "r"):
             if line.startswith('#'): continue
@@ -95,9 +94,9 @@ class OBJ:
         glNewList(self.gl_list, GL_COMPILE)
         glEnable(GL_TEXTURE_2D)
         glFrontFace(GL_CCW)
+
         for face in self.faces:
             vertices, normals, texture_coords, material = face
-
             mtl = self.mtl[material]
             if 'texture_Kd' in mtl:
                 # use diffuse texmap
@@ -105,8 +104,8 @@ class OBJ:
             else:
                 # just use diffuse colour
                 glColor(*mtl['Kd'])
-
             glBegin(GL_POLYGON)
+
             for i in range(len(vertices)):
                 if normals[i] > 0:
                     glNormal3fv(self.normals[normals[i] - 1])
@@ -145,3 +144,19 @@ class OBJ:
         avg_y = sum(v[1] for v in self.vertices) / len(self.vertices)
         avg_z = sum(v[2] for v in self.vertices) / len(self.vertices)
         return avg_x, avg_y, avg_z
+
+    def get_bounding_box(self):
+        min_x = min(v[0] for v in self.vertices)
+        min_z = min(v[2] for v in self.vertices)
+        max_x = max(v[0] for v in self.vertices)
+        max_z = max(v[2] for v in self.vertices)
+        return min_x, min_z, max_x, max_z
+
+    def get_position(self):
+        return self.position
+    def scale(self, scale):
+        self.vertices = [list(vertex) for vertex in self.vertices]
+        for vertex in self.vertices:
+            vertex[0] *= scale
+            vertex[1] *= scale
+            vertex[2] *= scale

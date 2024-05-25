@@ -1,9 +1,5 @@
-import pygame as pg
-import sys
 from OpenGL.GL import *
-from OpenGL.GLUT import *
 from OpenGL.GLU import *
-from math import *
 
 class Camera:
     def __init__(self):
@@ -20,15 +16,8 @@ class Camera:
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
-    def move(self, x, y, z):
-        self.x += x
-        self.y += y
-        self.z += z
-
-    def rotate(self, yaw, pitch, roll):
-        self.yaw += yaw
-        self.pitch += pitch
-        self.roll += roll
+    def set_yaw(self, yaw):
+        self.yaw = yaw
 
     def look_at(self, target_x, target_y, target_z):
         gluLookAt(self.x, self.y, self.z, target_x, target_y, target_z, 0, 1, 0)
@@ -38,9 +27,8 @@ class Camera:
         self.y = y
         self.z = z
 
-
     def apply(self):
-        glLoadIdentity()  # Reset transformations
+        glLoadIdentity()
         glRotatef(self.pitch, 1, 0, 0)
         glRotatef(self.yaw, 0, 1, 0)
         glRotatef(self.roll, 0, 0, 1)

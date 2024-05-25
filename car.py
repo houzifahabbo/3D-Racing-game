@@ -1,7 +1,8 @@
-import pygame
 from OpenGL.GL import *
 from objLoader import OBJ
+
 class Car:
+
     def __init__(self):
         self.x = 0
         self.y = 0
@@ -20,6 +21,8 @@ class Car:
         self.y += y
         self.z += z
 
+    def get_position(self):
+        return self.x, self.y, self.z
 
     def rotate(self, yaw, pitch, roll):
         self.yaw += yaw
@@ -32,6 +35,3 @@ class Car:
         glRotatef(self.pitch, 1, 0, 0)
         glRotatef(self.yaw, 0, 1, 0)
         glRotatef(self.roll, 0, 0, 1)
-
-    # def scale(self, scale):
-    #     glScalef(scale, scale, scale)
