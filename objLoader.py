@@ -1,6 +1,9 @@
-import pygame
 import os
+
+import pygame
 from OpenGL.GL import *
+
+
 class OBJ:
     generate_on_init = True
 

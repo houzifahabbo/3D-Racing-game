@@ -1,5 +1,6 @@
 from road import Road
 
+
 class Racetrack:
     def __init__(self):
         self.x = 0
@@ -57,7 +58,6 @@ class Racetrack:
                 Road(1, 0.5, [start_x, -0.005, start_z + i + 0.5], (0, 0, 0)).draw()
                 i += 1
 
-
         # # striped white and red lines for start/finish line
         # i = 0.0
         # while i < width:
@@ -97,17 +97,17 @@ class Racetrack:
     # Generate random coordinates outside the track
     def draw(self):
         self.draw_start_finish_line(-5, -6, 1, 9, False)
-        self.draw_straight_borders(-5, -30, 30, 10,False)
-        self.draw_curve_borders(1, 180, 6.5,-30, 10, 2)
-        self.draw_curve_borders(1, 180, 19, -30, 10,4)
-        self.draw_straight_borders(20, -60, 30, 10,False)
-        self.draw_curve_borders(1, 180, 31.5, -60, 10,  2)
+        self.draw_straight_borders(-5, -30, 30, 10, False)
+        self.draw_curve_borders(1, 180, 6.5, -30, 10, 2)
+        self.draw_curve_borders(1, 180, 19, -30, 10, 4)
+        self.draw_straight_borders(20, -60, 30, 10, False)
+        self.draw_curve_borders(1, 180, 31.5, -60, 10, 2)
         self.draw_curve_borders(1, 90, 44, -60, 10, 3)
-        self.draw_straight_borders(44, -59, 10, 20,True)
+        self.draw_straight_borders(44, -59, 10, 20, True)
         self.draw_curve_borders(1, 90, 64, -47.5, 10, 1)
-        self.draw_straight_borders(65, -47.5, 50, 10,False)
+        self.draw_straight_borders(65, -47.5, 50, 10, False)
         self.draw_curve_borders(1, 90, 64, 2.5, 10, 4)
-        self.draw_straight_borders(61.5, 3.5, 10, 2.5,True)
-        self.draw_straight_borders(6.5, 3.5, 10, 55,True)
+        self.draw_straight_borders(61.5, 3.5, 10, 2.5, True)
+        self.draw_straight_borders(6.5, 3.5, 10, 55, True)
         self.draw_curve_borders(1, 90, 6.5, 2.5, 10, 3)
-        self.draw_straight_borders(-5, 0, 2.5, 10,False)
+        self.draw_straight_borders(-5, 0, 2.5, 10, False)

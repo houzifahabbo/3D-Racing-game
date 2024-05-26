@@ -1,7 +1,9 @@
-from racetrack import Racetrack
-from OpenGL.GL import *
-from objLoader import OBJ
 from random import uniform
+
+from OpenGL.GL import *
+
+from objLoader import OBJ
+from racetrack import Racetrack
 
 
 class Environment:
@@ -56,7 +58,7 @@ class Environment:
         trees = []
         random_cords = self.get_random_coordinates_outside_track()
         for x, z in random_cords:
-            tree = OBJ('tree_object/Lowpoly_tree_sample.obj', swapyz=False)
+            tree = OBJ('objects/tree.obj', swapyz=False)
             tree.move(x, 0, z)
             tree.scale(uniform(0.1, 1))
             tree.generate()

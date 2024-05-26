@@ -1,23 +1,46 @@
-import pygame as pg
 from math import sin, cos, radians
+
+import pygame as pg
 import pygame.freetype
+
 from camera import Camera
 
 
-class Player():
-    def __init__(self, bindings,car):
+class Player:
+    def __init__(self, bindings, car, aspect_ratio=400 / 600):
         self.bindings = bindings
         self.state = {
             "move_speed": 0,
-            "acceleration": 0.01,
-            "deceleration": 0.005,
+            "acceleration": 0.02,
+            "deceleration": 0.008,
             "current_angle": 0,
             "collision": [False, False]
         }
         self.car = car
         self.camera = Camera()
-        self.camera.init()
+        self.camera.init(aspect_ratio)
+        self.lap_count = 0
+        self.has_lap_counted = True
+        self.timer = 0
+        self.rank = ''
+        self.move_sound = pygame.mixer.Sound('sound_effects/car_moving.wav')
+        self.move_sound.set_volume(0.2)
+        self.idle_sound = pygame.mixer.Sound('sound_effects/car_idle.wav')
+        self.idle_sound.set_volume(0.03)
+        self.start_sound = pygame.mixer.Sound('sound_effects/car_start.wav')
+        self.start_sound.set_volume(0.05)
+        self.collision_sound = pygame.mixer.Sound('sound_effects/collision.wav')
+        self.collision_sound.set_volume(0.2)
 
+    def update_lap_count(self, timer):
+        if timer > 50000:
+            self.timer = timer
+            self.has_lap_counted = False
+
+        if -5 < self.car.get_position()[0] < 5 and not self.has_lap_counted and -6.5 < self.car.get_position()[2] < -6:
+            self.lap_count += 1
+            self.has_lap_counted = True
+            self.timer = 0
 
     def check_collision(self, car_position, trees, move_x, move_z):
         new_car_position = (car_position[0] + move_x, car_position[1], car_position[2] + move_z)
@@ -91,3 +114,30 @@ class Player():
         self.camera.set_position(-cam_x, cam_y, -cam_z)
         self.camera.set_yaw(-self.state["current_angle"])
         self.camera.look_at(car_center[0], cam_y, car_center[2])
+        if 0.1 > self.state["move_speed"] and self.state["collision"] == [False, False]:
+            self.move_sound.stop()
+            self.idle_sound.play()
+        elif self.state["collision"][0] == True or self.state["collision"][1] == True:
+            self.move_sound.stop()
+            self.collision_sound.play()
+        else:
+            self.idle_sound.stop()
+            self.move_sound.play()
+
+    def check_rank(self, player2):
+        if self.lap_count > player2.lap_count:
+            self.rank = '1st'
+            player2.rank = '2nd'
+        elif self.lap_count < player2.lap_count:
+            self.rank = '2nd'
+            player2.rank = '1st'
+        else:
+            if self.timer > player2.timer:
+                self.rank = '1st'
+                player2.rank = '2nd'
+            elif self.timer < player2.timer:
+                self.rank = '2nd'
+                player2.rank = '1st'
+            else:
+                self.rank = 'Tie'
+                player2.rank = 'Tie'

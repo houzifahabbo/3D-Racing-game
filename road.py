@@ -1,8 +1,10 @@
-from OpenGL.GL import *
 from math import sin, cos, radians
 
+from OpenGL.GL import *
+
+
 class Road:
-    def __init__(self, length, width,position,color):
+    def __init__(self, length, width, position, color):
         self.length = length
         self.width = width
         self.position = position

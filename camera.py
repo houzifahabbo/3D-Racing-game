@@ -1,6 +1,7 @@
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
+
 class Camera:
     def __init__(self):
         self.x = 0
@@ -10,7 +11,7 @@ class Camera:
         self.pitch = 20
         self.roll = 0
 
-    def init(self,aspect_ratio=400/600):
+    def init(self, aspect_ratio):
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
         gluPerspective(50, aspect_ratio, 0.1, 100)
