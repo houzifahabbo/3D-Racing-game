@@ -10,9 +10,10 @@ class Camera:
         self.pitch = 20
         self.roll = 0
 
-    def init(self):
+    def init(self,aspect_ratio=400/600):
         glMatrixMode(GL_PROJECTION)
-        gluPerspective(50, (800/600), 0.1, 100)
+        glLoadIdentity()
+        gluPerspective(50, aspect_ratio, 0.1, 100)
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 

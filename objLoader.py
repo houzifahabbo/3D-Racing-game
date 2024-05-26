@@ -154,9 +154,13 @@ class OBJ:
 
     def get_position(self):
         return self.position
+
     def scale(self, scale):
         self.vertices = [list(vertex) for vertex in self.vertices]
         for vertex in self.vertices:
             vertex[0] *= scale
             vertex[1] *= scale
             vertex[2] *= scale
+
+    def set_position(self, x, y, z):
+        self.position = [x, y, z]

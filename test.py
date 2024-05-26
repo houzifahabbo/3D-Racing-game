@@ -1,5 +1,5 @@
 from OpenGL.GL import *
-from borders import Roads
+from road import Road
 from math import sin, cos, radians
 
 # borders_data = \
@@ -24,10 +24,10 @@ class Racetrack:
         if not rotated:
             for i in range(0, length, 5):
                 if i % 10 == 0:
-                    Roads(5, 0.5, [start_x, 0, start_z + i], 'red').draw()
-                    Roads(5, 0.5, [start_x + width , 0, start_z + i], 'red').draw()
-                Roads(5, 0.5, [start_x, 0, start_z + i], 'white').draw()
-                Roads(5, 0.5, [start_x + width, 0, start_z + i], 'white').draw()
+                    Road(5, 0.5, [start_x, 0, start_z + i], 'red').draw()
+                    Road(5, 0.5, [start_x + width , 0, start_z + i], 'red').draw()
+                Road(5, 0.5, [start_x, 0, start_z + i], 'white').draw()
+                Road(5, 0.5, [start_x + width, 0, start_z + i], 'white').draw()
             glColor3f(0.5, 0.5, 0.5)
             glBegin(GL_QUAD_STRIP)
             for i in range(0, length + 1, 5):
@@ -38,10 +38,10 @@ class Racetrack:
         else:
             for i in range(0, width, 5):
                 if i % 10 == 0:
-                    Roads(0.5, 5, [start_x + i, 0, start_z], 'red').draw()
-                    Roads(0.5, 5, [start_x + i, 0, start_z + length], 'red').draw()
-                Roads(0.5, 5, [start_x + i, 0, start_z], 'white').draw()
-                Roads(0.5, 5, [start_x + i, 0, start_z + length], 'white').draw()
+                    Road(0.5, 5, [start_x + i, 0, start_z], 'red').draw()
+                    Road(0.5, 5, [start_x + i, 0, start_z + length], 'red').draw()
+                Road(0.5, 5, [start_x + i, 0, start_z], 'white').draw()
+                Road(0.5, 5, [start_x + i, 0, start_z + length], 'white').draw()
             glColor3f(0.5, 0.5, 0.5)
             glBegin(GL_QUAD_STRIP)
             for i in range(0, width + 1, 5):
@@ -76,8 +76,8 @@ class Racetrack:
 
     def draw_curve_borders(self, radius, angle, start_x, start_z, length, quadrant):
         for i in range(0, angle, 10):
-            Roads(0.5, 0.5, [start_x, -0.003, start_z], 'white').draw_curve(radius + length, angle, quadrant)
-            Roads(0.5, 0.5, [start_x, -0.003, start_z], 'red').draw_curve(radius, angle, quadrant)
+            Road(0.5, 0.5, [start_x, -0.003, start_z], 'white').draw_curve(radius + length, angle, quadrant)
+            Road(0.5, 0.5, [start_x, -0.003, start_z], 'red').draw_curve(radius, angle, quadrant)
 
         glColor3f(0.5, 0.5, 0.5)
         glBegin(GL_QUAD_STRIP)

@@ -2,7 +2,10 @@ from racetrack import Racetrack
 from OpenGL.GL import *
 from objLoader import OBJ
 from random import uniform
+
+
 class Environment:
+
     def get_random_coordinates_outside_track(self):
         # Define the bounding area for the entire track (assuming a large enough area)
         track_bounds = (-100, -100, 200, 200)  # (xmin, ymin, xmax, ymax)
@@ -33,15 +36,16 @@ class Environment:
         for _ in range(100):  # Generate 100 random points
             while True:
                 x = uniform(track_bounds[0], track_bounds[2])
-                z =uniform(track_bounds[1], track_bounds[3])
+                z = uniform(track_bounds[1], track_bounds[3])
                 if not is_inside_track(x, z, random_coords):
                     outside_coords.append((x, z))
                     break
 
         return outside_coords
+
     def draw_floor(self):
         glBegin(GL_QUADS)
-        glColor3f(0, 0.5,0)
+        glColor3f(0, 0.5, 0)
         glVertex3f(-100, -0.009, -100)
         glVertex3f(100, -0.009, -100)
         glVertex3f(100, -0.009, 100)
@@ -57,11 +61,11 @@ class Environment:
             tree.scale(uniform(0.1, 1))
             tree.generate()
             trees.append(tree)
-            if len(trees) ==20:
+            if len(trees) == 20:
                 break
         return trees
 
-    def init_env(self , trees):
+    def init_env(self, trees):
         for tree in trees:
             tree.render()
         Racetrack().draw()

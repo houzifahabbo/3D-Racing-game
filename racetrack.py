@@ -1,4 +1,4 @@
-from borders import Roads
+from road import Road
 
 class Racetrack:
     def __init__(self):
@@ -16,45 +16,45 @@ class Racetrack:
             while i < length:
                 segment_length = min(step, length - i)
                 if int(i) % 10 == 0:
-                    Roads(segment_length, 0.5, [start_x, 0, start_z + i], (1,0,0)).draw()
-                    Roads(segment_length, 0.5, [start_x + width, 0, start_z + i], (1,0,0)).draw()
-                Roads(segment_length, 0.5, [start_x, 0, start_z + i], (1,1,1)).draw()
-                Roads(segment_length, 0.5, [start_x + width, 0, start_z + i], (1,1,1)).draw()
+                    Road(segment_length, 0.5, [start_x, 0, start_z + i], (1, 0, 0)).draw()
+                    Road(segment_length, 0.5, [start_x + width, 0, start_z + i], (1, 0, 0)).draw()
+                Road(segment_length, 0.5, [start_x, 0, start_z + i], (1, 1, 1)).draw()
+                Road(segment_length, 0.5, [start_x + width, 0, start_z + i], (1, 1, 1)).draw()
                 i += step
-            Roads(length, width, [start_x, -0.007, start_z], (0.5,0.5,0.5)).draw()
+            Road(length, width, [start_x, -0.007, start_z], (0.5, 0.5, 0.5)).draw()
         else:
             i = 0.0
             while i < width:
                 segment_length = min(step, width - i)
                 if int(i) % 10 == 0:
-                    Roads(0.5, segment_length, [start_x + i, -0.004, start_z], (1,0,0)).draw()
-                    Roads(0.5, segment_length, [start_x + i, -0.004, start_z + length], (1,0,0)).draw()
-                Roads(0.5, segment_length, [start_x + i, -0.004, start_z], (1,1,1)).draw()
-                Roads(0.5, segment_length, [start_x + i, -0.004, start_z + length], (1,1,1)).draw()
+                    Road(0.5, segment_length, [start_x + i, -0.004, start_z], (1, 0, 0)).draw()
+                    Road(0.5, segment_length, [start_x + i, -0.004, start_z + length], (1, 0, 0)).draw()
+                Road(0.5, segment_length, [start_x + i, -0.004, start_z], (1, 1, 1)).draw()
+                Road(0.5, segment_length, [start_x + i, -0.004, start_z + length], (1, 1, 1)).draw()
                 i += step
-            Roads(length, width, [start_x, -0.006, start_z], (0.5,0.5,0.5)).draw()
+            Road(length, width, [start_x, -0.006, start_z], (0.5, 0.5, 0.5)).draw()
 
     def draw_curve_borders(self, radius, angle, start_x, start_z, length, quadrant):
         for i in range(0, angle, 10):
-            Roads(0.5, 0.5, [start_x, -0.007, start_z], (1,1,1)).draw_curve(radius + length, angle, quadrant)
-            Roads(0.5, 0.5, [start_x, -0.007, start_z], (1,0,0)).draw_curve(radius, angle, quadrant)
-        Roads(length, 0.5, [start_x, -0.008, start_z], (0.5,0.5,0.5)).draw_curve(radius, angle, quadrant)
+            Road(0.5, 0.5, [start_x, -0.007, start_z], (1, 1, 1)).draw_curve(radius + length, angle, quadrant)
+            Road(0.5, 0.5, [start_x, -0.007, start_z], (1, 0, 0)).draw_curve(radius, angle, quadrant)
+        Road(length, 0.5, [start_x, -0.008, start_z], (0.5, 0.5, 0.5)).draw_curve(radius, angle, quadrant)
 
     def draw_start_finish_line(self, start_x, start_z, length, width, rotated):
         i = 0
         if not rotated:
             while i <= width:
-                Roads(1, 0.5, [start_x + i, -0.005, start_z], (1, 1, 1)).draw()
-                Roads(1, 0.5, [start_x + i, -0.005, start_z + length], (0, 0, 0)).draw()
-                Roads(1, 0.5, [start_x + i + 0.5, -0.005, start_z + length], (1, 1, 1)).draw()
-                Roads(1, 0.5, [start_x + i + 0.5, -0.005, start_z], (0, 0, 0)).draw()
+                Road(1, 0.5, [start_x + i, -0.005, start_z], (1, 1, 1)).draw()
+                Road(1, 0.5, [start_x + i, -0.005, start_z + length], (0, 0, 0)).draw()
+                Road(1, 0.5, [start_x + i + 0.5, -0.005, start_z + length], (1, 1, 1)).draw()
+                Road(1, 0.5, [start_x + i + 0.5, -0.005, start_z], (0, 0, 0)).draw()
                 i += 1
         else:
             while i <= length:
-                Roads(1, 0.5, [start_x, -0.005, start_z + i], (1, 1, 1)).draw()
-                Roads(1, 0.5, [start_x + width, -0.005, start_z + i], (0, 0, 0)).draw()
-                Roads(1, 0.5, [start_x + width, -0.005, start_z + i + 0.5], (1, 1, 1)).draw()
-                Roads(1, 0.5, [start_x, -0.005, start_z + i + 0.5], (0, 0, 0)).draw()
+                Road(1, 0.5, [start_x, -0.005, start_z + i], (1, 1, 1)).draw()
+                Road(1, 0.5, [start_x + width, -0.005, start_z + i], (0, 0, 0)).draw()
+                Road(1, 0.5, [start_x + width, -0.005, start_z + i + 0.5], (1, 1, 1)).draw()
+                Road(1, 0.5, [start_x, -0.005, start_z + i + 0.5], (0, 0, 0)).draw()
                 i += 1
 
 
