@@ -33,14 +33,14 @@ class Player:
         self.collision_sound.set_volume(0.2)
 
     def update_lap_count(self, timer):
-        if timer > 50000:
-            self.timer = timer
+        if timer - self.timer > 30000:
+            self.timer = 0
             self.has_lap_counted = False
 
         if -5 < self.car.get_position()[0] < 5 and not self.has_lap_counted and -6.5 < self.car.get_position()[2] < -6:
             self.lap_count += 1
             self.has_lap_counted = True
-            self.timer = 0
+            self.timer = timer
 
     def check_collision(self, car_position, trees, move_x, move_z):
         new_car_position = (car_position[0] + move_x, car_position[1], car_position[2] + move_z)

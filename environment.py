@@ -48,10 +48,10 @@ class Environment:
     def draw_floor(self):
         glBegin(GL_QUADS)
         glColor3f(0, 0.5, 0)
-        glVertex3f(-100, -0.009, -100)
-        glVertex3f(100, -0.009, -100)
-        glVertex3f(100, -0.009, 100)
-        glVertex3f(-100, -0.009, 100)
+        glVertex3f(-200, -0.009, -200)
+        glVertex3f(200, -0.009, -200)
+        glVertex3f(200, -0.009, 200)
+        glVertex3f(-200, -0.009, 200)
         glEnd()
 
     def draw_trees(self):
