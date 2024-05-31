@@ -2,7 +2,47 @@ from road import Road
 
 
 class Racetrack:
+    """
+    A class to represent a racetrack in a racing game.
+
+    ...
+
+    Attributes
+    ----------
+    x : float
+        the x-coordinate of the racetrack's position
+    y : float
+        the y-coordinate of the racetrack's position
+    z : float
+        the z-coordinate of the racetrack's position
+    yaw : float
+        the yaw angle of the racetrack (rotation around the y-axis)
+    pitch : float
+        the pitch angle of the racetrack (rotation around the x-axis)
+    roll : float
+        the roll angle of the racetrack (rotation around the z-axis)
+
+    Methods
+    -------
+    draw_straight_borders(start_x, start_z, length, width, rotated):
+        Draws straight borders of the racetrack.
+    draw_curve_borders(radius, angle, start_x, start_z, length, quadrant):
+        Draws curved borders of the racetrack.
+    draw_start_finish_line(start_x, start_z, length, width, rotated):
+        Draws the start and finish line of the racetrack.
+    get_track_coordinates():
+        Returns a list of tuples, where each tuple contains the x and z coordinates, and the width and height of a segment of the track.
+    is_inside_track(x, y, boxes):
+        Checks if a given point is inside the track.
+    draw():
+        Calls the other methods to draw the entire track.
+    """
+
     def __init__(self):
+        """
+        Constructs all the necessary attributes for the racetrack object.
+        """
+
         self.x = 0
         self.y = 0
         self.z = 0
@@ -11,6 +51,16 @@ class Racetrack:
         self.roll = 0
 
     def draw_straight_borders(self, start_x, start_z, length, width, rotated):
+        """
+        Draws straight borders of the racetrack.
+
+        Parameters:
+        start_x (float): The starting x-coordinate of the border.
+        start_z (float): The starting z-coordinate of the border.
+        length (float): The length of the border.
+        width (float): The width of the border.
+        rotated (bool): A flag indicating whether the border is rotated.
+        """
         step = 5.0
         if not rotated:
             i = 0.0
@@ -36,12 +86,33 @@ class Racetrack:
             Road(length, width, [start_x, -0.006, start_z], (0.5, 0.5, 0.5)).draw()
 
     def draw_curve_borders(self, radius, angle, start_x, start_z, length, quadrant):
+        """
+        Draws curved borders of the racetrack.
+
+        Parameters:
+        radius (float): The radius of the curve.
+        angle (float): The angle of the curve.
+        start_x (float): The starting x-coordinate of the border.
+        start_z (float): The starting z-coordinate of the border.
+        length (float): The length of the border.
+        quadrant (int): The quadrant of the curve.
+        """
         for i in range(0, angle, 10):
             Road(0.5, 0.5, [start_x, -0.007, start_z], (1, 1, 1)).draw_curve(radius + length, angle, quadrant)
             Road(0.5, 0.5, [start_x, -0.007, start_z], (1, 0, 0)).draw_curve(radius, angle, quadrant)
         Road(length, 0.5, [start_x, -0.008, start_z], (0.5, 0.5, 0.5)).draw_curve(radius, angle, quadrant)
 
     def draw_start_finish_line(self, start_x, start_z, length, width, rotated):
+        """
+        Draws the start and finish line of the racetrack.
+
+        Parameters:
+        start_x (float): The starting x-coordinate of the line.
+        start_z (float): The starting z-coordinate of the line.
+        length (float): The length of the line.
+        width (float): The width of the line.
+        rotated (bool): A flag indicating whether the line is rotated.
+        """
         i = 0
         if not rotated:
             while i <= width:
@@ -58,15 +129,13 @@ class Racetrack:
                 Road(1, 0.5, [start_x, -0.005, start_z + i + 0.5], (0, 0, 0)).draw()
                 i += 1
 
-        # # striped white and red lines for start/finish line
-        # i = 0.0
-        # while i < width:
-        #     Roads(1, 0.5, [-4.5+i, 0.002, -5 ], (0,0,0)).draw()
-        #     Roads(1, 0.5, [-4+i, 0.002, -5], (1,1,1)).draw()
-        #     Roads(1, 0.5, [-4.5+i, 0.002, -6 ], (1,1,1)).draw()
-        #     Roads(1, 0.5, [-4+i, 0.002, -6], (0,0,0)).draw()
-
     def get_track_coordinates(self):
+        """
+        Returns a list of tuples, where each tuple contains the x and z coordinates, and the width and height of a segment of the track.
+
+        Returns:
+        list: A list of tuples, where each tuple contains the x and z coordinates, and the width and height of a segment of the track.
+        """
         # Coordinates extracted from the draw method
         coordinates = [
             (-5, -6, 1, 9),  # Start/finish line
@@ -88,14 +157,10 @@ class Racetrack:
 
         return coordinates
 
-    def is_inside_track(x, y, boxes):
-        for (min_x, min_y, max_x, max_y) in boxes:
-            if min_x <= x <= max_x and min_y <= y <= max_y:
-                return True
-        return False
-
-    # Generate random coordinates outside the track
     def draw(self):
+        """
+        Calls the other methods to draw the entire track.
+        """
         self.draw_start_finish_line(-5, -6, 1, 9, False)
         self.draw_straight_borders(-5, -30, 30, 10, False)
         self.draw_curve_borders(1, 180, 6.5, -30, 10, 2)

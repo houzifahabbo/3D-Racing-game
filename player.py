@@ -7,7 +7,60 @@ from camera import Camera
 
 
 class Player:
+    """
+    A class to represent a player in the game.
+
+    ...
+
+    Attributes
+    ----------
+    bindings : dict
+        a dictionary containing the key bindings for the player's controls
+    state : dict
+        a dictionary containing the player's current state
+    car : OBJ
+        the car object that the player is controlling
+    camera : Camera
+        the camera object that follows the player's car
+    lap_count : int
+        the number of laps that the player has completed
+    has_lap_counted : bool
+        a flag indicating whether the lap count has been updated
+    timer : int
+        a timer for tracking the time elapsed since the last lap
+    rank : str
+        the player's current rank in the race
+    move_sound : Sound
+        the sound effect for the car's movement
+    idle_sound : Sound
+        the sound effect for the car's idle state
+    start_sound : Sound
+        the sound effect for the car's start state
+    collision_sound : Sound
+        the sound effect for the car's collision state
+
+    Methods
+    -------
+    update_lap_count(timer):
+        Updates the player's lap count based on their position on the track.
+    check_collision(car_position, trees, move_x, move_z):
+        Checks if the player's car has collided with a tree.
+    movement(trees):
+        Updates the player's movement based on their current state and the key bindings.
+    check_rank(player2):
+        Checks and updates the player's rank based on their lap count and timer.
+    """
+
     def __init__(self, bindings, car, aspect_ratio=400 / 600):
+        """
+        Constructs all the necessary attributes for the player object.
+
+        Parameters:
+        bindings (dict): The key bindings for the player's controls.
+        car (OBJ): The car object that the player is controlling.
+        aspect_ratio (float): The aspect ratio of the player's screen. Defaults to 400 / 600.
+        """
+
         self.bindings = bindings
         self.state = {
             "move_speed": 0,
@@ -33,6 +86,13 @@ class Player:
         self.collision_sound.set_volume(0.2)
 
     def update_lap_count(self, timer):
+        """
+        Updates the player's lap count based on their position on the track.
+
+        Parameters:
+        timer (int): The current game timer.
+        """
+
         if timer - self.timer > 30000:
             self.timer = 0
             self.has_lap_counted = False
@@ -43,6 +103,19 @@ class Player:
             self.timer = timer
 
     def check_collision(self, car_position, trees, move_x, move_z):
+        """
+        Checks if the player's car has collided with a tree.
+
+        Parameters:
+        car_position (tuple): The current position of the car.
+        trees (list): A list of tree objects.
+        move_x (float): The x-coordinate of the car's movement vector.
+        move_z (float): The z-coordinate of the car's movement vector.
+
+        Returns:
+        bool: True if the car has collided with a tree, False otherwise.
+        """
+
         new_car_position = (car_position[0] + move_x, car_position[1], car_position[2] + move_z)
         for tree in trees:
             tp = tree.get_position()
@@ -56,6 +129,13 @@ class Player:
         return False
 
     def movement(self, trees):
+        """
+        Updates the player's movement based on their current state and the key bindings.
+
+        Parameters:
+        trees (list): A list of tree objects.
+        """
+
         keys = pg.key.get_pressed()
         rotate_angle = 0
         if keys[self.bindings["forward"]]:
@@ -125,6 +205,13 @@ class Player:
             self.move_sound.play()
 
     def check_rank(self, player2):
+        """
+        Checks and updates the player's rank based on their lap count and timer.
+
+        Parameters:
+        player2 (Player): The other player in the game.
+        """
+
         if self.lap_count > player2.lap_count:
             self.rank = '1st'
             player2.rank = '2nd'
